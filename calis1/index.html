@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Çalış 1 - Ortalama Fiyat</title>
+  <link rel="stylesheet" href="../style.css">
+  <script src="../app.js"></script>
+</head>
+<body class="dark">
+  <button class="theme-toggle" onclick="toggleTheme()">🌓 Tema</button>
+  <div class="cikis-simgesi" onclick="window.location.href='../index.html'" title="Ana Sayfa">
+    <img src="../cikis.png" alt="Çıkış" width="50" height="25">
+  </div>
+    <!-- Aynı header logo -->
+  <div class="header-logo">
+    <img src="../bekbas.png" alt="Bekbaş Logo" class="logo" />
+    <div class="header-text">
+      <div class="alt-baslik">Bekbaş Gıda San. Tic.Aş.</div>
+    </div>
+  </div>
+
+  <div class="card-container" style="max-width: 500px;">
+    <div class="card">
+      <h2>ÇALIŞ 1 - Ortalama Fiyat</h2>
+      <input type="number" id="depoMiktar" placeholder="Depo KG">
+      <input type="number" id="depoFiyat" step="0.0001" placeholder="Depo Fiyat (TL/kg)">
+      <input type="number" id="gelenMiktar" placeholder="Gelen KG">
+      <input type="number" id="gelenFiyat" step="0.0001" placeholder="Gelen Fiyat (TL/kg)">
+      <button onclick="hesapla()">Hesapla</button>
+      <button class="temizle" onclick="temizle()">Temizle</button>
+      <div class="result" id="sonuc"></div>
+    </div>
+  </div>
+
+  <script>
+    function hesapla() {
+      const dKg = parseFloat(document.getElementById('depoMiktar').value);
+      const dF = parseFloat(document.getElementById('depoFiyat').value);
+      const gKg = parseFloat(document.getElementById('gelenMiktar').value);
+      const gF = parseFloat(document.getElementById('gelenFiyat').value);
+      if (isNaN(dKg) || isNaN(dF) || isNaN(gKg) || isNaN(gF)) {
+        document.getElementById('sonuc').innerText = "Eksik değer!";
+        return;
+      }
+      const ortalama = ((dKg * dF) + (gKg * gF)) / (dKg + gKg);
+      document.getElementById('sonuc').innerText = "Ortalama: " + ortalama.toFixed(2) + " TL/kg";
+    }
+    function temizle() {
+      document.querySelectorAll('input').forEach(i => i.value = '');
+      document.getElementById('sonuc').innerText = '';
+    }
+  </script>
+</body>
+</html>

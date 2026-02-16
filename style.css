@@ -1,0 +1,315 @@
+:root {
+  --bg: #525252;
+  --card-bg: #2a3748;
+  --text: #eef2f6;
+  --primary: #ff7a2f;
+  --border: #3e4b5d;
+  --input-bg: #1e2a3a;
+  --input-text: #eef2f6;
+  --shadow: rgba(0, 0, 0, 0.3);
+}
+
+body.light {
+  --bg: #f0f4fa;
+  --card-bg: #ffffff;
+  --text: #1e2a3a;
+  --primary: #ff7a2f;
+  --border: #d0d9e6;
+  --input-bg: #ffffff;
+  --input-text: #1e2a3a;
+  --shadow: rgba(0, 0, 0, 0.05);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.3s, color 0.2s;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 15px;
+  font-size: 14px;
+}
+
+/* ---------- BAŞLIK ALANI ---------- */
+.header-logo {
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 0 0 30px 0;
+  padding: 0 10px;
+}
+.header-logo .logo {
+  height: 55px;
+  width: auto;
+  border-radius: 12px; /* yuvarlak köşeler */
+  object-fit: contain;
+}
+.header-text {
+  display: flex;
+  flex-direction: column;
+}
+.ana-baslik {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--primary);
+  line-height: 1.2;
+  letter-spacing: 0.5px;
+}
+.alt-baslik {
+  font-size: 14px;
+  color: var(--text);
+  opacity: 0.8;
+  margin-top: 2px;
+}
+@media (max-width: 650px) {
+  .header-logo .logo { height: 40px; }
+  .ana-baslik { font-size: 20px; }
+  .alt-baslik { font-size: 12px; }
+}
+
+/* tema butonu */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 80px;
+  background: var(--primary);
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 999;
+  box-shadow: 0 4px 8px var(--shadow);
+  transition: 0.2s;
+  white-space: nowrap;
+  max-width: 120px;
+  width: auto;
+  min-width: 70px;
+  text-align: center;
+}
+.theme-toggle:hover {
+  filter: brightness(1.1);
+  transform: scale(1.02);
+}
+
+/* çıkış simgesi */
+.cikis-simgesi {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  z-index: 1000;
+  background: var(--card-bg);
+  border-radius: 30px;
+  padding: 5px 12px;
+  box-shadow: 0 4px 8px var(--shadow);
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text);
+  font-size: 13px;
+}
+.cikis-simgesi:hover {
+  transform: scale(1.05);
+  background: var(--primary);
+  color: white;
+}
+.cikis-simgesi img {
+  width: 24px;
+  height: auto;
+}
+
+/* kart grid */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 22px;
+  width: 100%;
+  max-width: 1400px;
+  margin-top: 10px;
+}
+
+/* kart */
+.card {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 18px 16px 16px 16px;
+  box-shadow: 0 8px 18px var(--shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  backdrop-filter: blur(2px);
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 25px var(--shadow);
+}
+
+/* bilgi ikonu */
+.info-icon {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 18px;
+  cursor: pointer;
+  background: var(--primary);
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px black;
+  z-index: 10; /* overlay'in altında kalmaması için yüksek */
+}
+
+/* kart başlığı */
+.card h2 {
+  font-size: 16px;
+  margin: 0 0 4px 0;
+  color: var(--primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 36px;
+  min-height: 36px;
+}
+.card-link {
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--primary);
+  font-weight: 500;
+  font-size: 13px;
+  margin-left: auto;
+}
+.card-link:hover {
+  color: var(--primary);
+}
+
+/* açıklama overlay */
+.aciklama-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--card-bg);
+  backdrop-filter: blur(4px);
+  display: none; /* varsayılan gizli */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 20; /* ikonun üstünde */
+  border-radius: 20px;
+  box-sizing: border-box;
+  border: 2px solid var(--primary);
+}
+.aciklama-icerik {
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.aciklama-icerik button {
+  margin-top: 18px;
+  padding: 8px 18px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* inputlar */
+input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--input-bg);
+  color: var(--input-text);
+  font-size: 13px;
+  outline: none;
+  transition: 0.2s;
+}
+input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(255, 122, 47, 0.2);
+}
+input::placeholder {
+  color: #9aa9b9;
+  opacity: 0.7;
+}
+
+/* butonlar */
+button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 30px;
+  border: none;
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s;
+  box-shadow: 0 4px 6px var(--shadow);
+}
+button:hover {
+  filter: brightness(1.1);
+  transform: scale(1.02);
+}
+button.temizle {
+  background: #6c757d;
+  margin-top: 0;
+}
+button.temizle:hover {
+  background: #5a6268;
+}
+
+/* sonuç */
+.result {
+  min-height: 65px;
+  background: rgba(0,0,0,0.1);
+  border-radius: 16px;
+  padding: 10px;
+  font-weight: 500;
+  font-size: 13px;
+  white-space: pre-line;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+/* mobil */
+@media (max-width: 650px) {
+  body { padding: 10px; }
+  .theme-toggle { 
+    right: 90px; 
+    top: 15px; 
+    padding: 6px 12px;
+    max-width: 100px; 
+  }
+  .cikis-simgesi { top: 15px; right: 15px; padding: 4px 10px; }
+  .card-container { gap: 16px; }
+  .card { padding: 16px; }
+  .card h2 { padding-left: 32px; }
+}

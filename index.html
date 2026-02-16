@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5135YBN2SS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-5135YBN2SS');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bekbaş Hesaplamalar</title>
+  <link rel="icon" type="image/png" href="icon1.jpg" />
+  <link rel="stylesheet" href="style.css" />
+  
+</head>
+
+<body >
+
+  <!-- Tema değiştirme butonu -->
+  <button class="theme-toggle" onclick="toggleTheme()">🌓 Tema</button>
+
+  <!-- Çıkış simgesi -->
+  <div class="cikis-simgesi" onclick="window.location.href='index.html'" title="Ana Sayfa">
+    <img src="cikis.png" alt="Çıkış" width="50" height="25" />
+  </div>
+
+  <!-- Başlık alanı: logo + yazılar -->
+  <div class="header-logo">
+    <img src="bekbas.png" alt="Bekbaş Logo" class="logo" />
+    <div class="header-text">
+      <div class="ana-baslik">Bekbaş Gıda San. Tic. Aş.</div>
+    </div>
+  </div>
+
+  <!-- Kartlar grid container -->
+  <div class="card-container">
+    
+    <!-- Card 1: Ortalama Fiyat -->
+    <div class="card">
+      <div class="info-icon" onclick="aciklamaGoster(this)">ℹ️</div>
+      <div class="aciklama-overlay">
+        <div class="aciklama-icerik">
+          <p>Bu kart, mevcut depodaki ürün ve yeni gelen ürün miktarları ile fiyatlarına göre ortalama birim fiyatı hesaplar. Maliyet takibi için kullanılır.</p>
+          <button onclick="aciklamaKapat(this)">Kapat</button>
+        </div>
+      </div>
+      <h2><strong>ÇALIŞ: 1</strong><a href="calis1/index.html" class="card-link">Stok Bazlı Ortalama Fiyat</a></h2>
+      <input type="number" id="depoMiktar" placeholder="Depodaki Miktar (kg)" />
+      <input type="number" id="depoFiyat" step="0.0001" placeholder="Depodaki Fiyat (TL/kg)" />
+      <input type="number" id="gelenMiktar" placeholder="Gelen Miktar (kg)" />
+      <input type="number" id="gelenFiyat" step="0.0001" placeholder="Gelen Fiyat (TL/kg)" />
+      <button onclick="ortalamaFiyatHesapla()">Hesapla</button>
+      <button class="temizle" onclick="inputlariTemizle(this)">Temizle</button>
+      <div class="result" id="ortalamaSonuc"></div>
+    </div>
+
+    <!-- Card 2: Adet Hesaplama -->
+    <div class="card">
+      <div class="info-icon" onclick="aciklamaGoster(this)">ℹ️</div>
+      <div class="aciklama-overlay">
+        <div class="aciklama-icerik">
+          <p>Bu kart; tane gramajı, koli adedi, toplam kg ve kg fiyatına göre toplam adet, KDV hariç/dahil adet fiyatlarını hesaplar.</p>
+          <button onclick="aciklamaKapat(this)">Kapat</button>
+        </div>
+      </div>
+      <h2><strong>ÇALIŞ: 2</strong><a href="calis2/index.html" class="card-link">KG'dan Adet Çevirme</a></h2>
+      <input type="number" id="taneGram" placeholder="Tane Gramajı (gr)" />
+      <input type="number" id="koliAdedi" placeholder="Kolideki Adet"  />
+      <input type="number" id="toplamKg" placeholder="Toplam Miktar (kg)" />
+      <input type="number" id="birimFiyat" step="0.0001" placeholder="KG Fiyatı (KDV hariç)" />
+      <input type="number" id="kdvOrani" placeholder="KDV Oranı (%)"  />
+      <button onclick="sosisDogruHesapla()">Hesapla</button>
+      <button class="temizle" onclick="inputlariTemizle(this)">Temizle</button>
+      <div class="result" id="sonuc3"></div>
+    </div>
+
+    <!-- Card 3: KG Hesaplama -->
+    <div class="card">
+      <div class="info-icon" onclick="aciklamaGoster(this)">ℹ️</div>
+      <div class="aciklama-overlay">
+        <div class="aciklama-icerik">
+          <p>Toplam adet, adet gramajı ve birim fiyat ile toplam kg ve kg fiyatını hesaplar.</p>
+          <button onclick="aciklamaKapat(this)">Kapat</button>
+        </div>
+      </div>
+      <h2><strong>ÇALIŞ: 3</strong><a href="calis3/index.html" class="card-link">Adet'ten Kg  Çevirme</a></h2>
+      <input type="number" id="patatesAdet" placeholder="Toplam Adet" />
+      <input type="number" id="patatesGramaj" placeholder="Adet Gramajı (gr)" />
+      <input type="number" id="patatesBirimFiyat" step="0.0001" placeholder="Birim Fiyat (KDV hariç)" />
+      <input type="number" id="patatesKdvOrani" placeholder="KDV Oranı (%)"  />
+      <button onclick="patatesKgHesapla()">Hesapla</button>
+      <button class="temizle" onclick="inputlariTemizle(this)">Temizle</button>
+      <div class="result" id="sonuc4"></div>
+    </div>
+
+    <!-- Card 4: Ağırlıklı Ortalama -->
+    <div class="card">
+      <div class="info-icon" onclick="aciklamaGoster(this)">ℹ️</div>
+      <div class="aciklama-overlay">
+        <div class="aciklama-icerik">
+          <p>İki farklı partiye ait kilogram ve fiyat bilgilerini girerek ağırlıklı ortalama fiyatı hesaplar. Örnek: 1258 kg 129 TL, 712 kg 118 TL → ortalama 124.99 TL/kg.</p>
+          <button onclick="aciklamaKapat(this)">Kapat</button>
+        </div>
+      </div>
+      <h2><strong>ÇALIŞ: 4</strong>  <a href="calis4/index.html" class="card-link">Ağırlık Bazlı Ortalama Fiyat</a></h2>
+      <input type="number" id="kg1" placeholder="1. Miktar (kg)" />
+      <input type="number" id="fiyat1" step="0.0001" placeholder="1. Fiyat (TL/kg)" />
+      <input type="number" id="kg2" placeholder="2. Miktar (kg)" />
+      <input type="number" id="fiyat2" step="0.0001" placeholder="2. Fiyat (TL/kg)" />
+      <button onclick="agirlikliOrtalamaHesapla()">Hesapla</button>
+      <button class="temizle" onclick="inputlariTemizle(this)">Temizle</button>
+      <div class="result" id="agirlikliSonuc"></div>
+    </div>
+
+    <!-- Buraya yeni kartlar eklenecek -->
+  </div>
+
+  <!-- Ortak JavaScript -->
+  <script src="app.js"></script>
+  <script>
+    // Hesaplama fonksiyonları (ana sayfada çalışması için)
+    function ortalamaFiyatHesapla() {
+      const depoKg = parseFloat(document.getElementById('depoMiktar')?.value);
+      const depoFiyat = parseFloat(document.getElementById('depoFiyat')?.value);
+      const gelenKg = parseFloat(document.getElementById('gelenMiktar')?.value);
+      const gelenFiyat = parseFloat(document.getElementById('gelenFiyat')?.value);
+      if ([depoKg, depoFiyat, gelenKg, gelenFiyat].some(isNaN)) {
+        document.getElementById('ortalamaSonuc').innerText = "Lütfen tüm alanları doldurun.";
+        return;
+      }
+      const toplamMiktar = depoKg + gelenKg;
+      const toplamTutar = depoKg * depoFiyat + gelenKg * gelenFiyat;
+      const ortalama = (toplamTutar / toplamMiktar).toFixed(2);
+      document.getElementById('ortalamaSonuc').innerText = `Ortalama Fiyat: ${ortalama} TL/kg`;
+    }
+
+    function sosisDogruHesapla() {
+      const gram = parseFloat(document.getElementById('taneGram')?.value);
+      const koliAdet = parseFloat(document.getElementById('koliAdedi')?.value);
+      const toplamKg = parseFloat(document.getElementById('toplamKg')?.value);
+      const birimFiyat = parseFloat(document.getElementById('birimFiyat')?.value);
+      const kdv = parseFloat(document.getElementById('kdvOrani')?.value);
+      if ([gram, koliAdet, toplamKg, birimFiyat, kdv].some(isNaN)) {
+        document.getElementById('sonuc3').innerText = "Lütfen tüm alanları doldurun.";
+        return;
+      }
+      const toplamAdet = Math.round(toplamKg / (gram / 1000));
+      const adetFiyatKDVsiz = (birimFiyat * (gram / 1000)).toFixed(2);
+      const adetFiyatKDVli = (adetFiyatKDVsiz * (1 + kdv / 100)).toFixed(2);
+      document.getElementById('sonuc3').innerText =
+        `Gelen Adet: ${toplamAdet} adet\nKDV Hariç: ${adetFiyatKDVsiz} TL\nKDV Dahil: ${adetFiyatKDVli} TL`;
+    }
+
+    function patatesKgHesapla() {
+      const adet = parseFloat(document.getElementById('patatesAdet')?.value);
+      const gramaj = parseFloat(document.getElementById('patatesGramaj')?.value);
+      const birimFiyat = parseFloat(document.getElementById('patatesBirimFiyat')?.value);
+      const kdv = parseFloat(document.getElementById('patatesKdvOrani')?.value);
+      if ([adet, gramaj, birimFiyat, kdv].some(isNaN)) {
+        document.getElementById('sonuc4').innerText = "Lütfen tüm alanları doldurun.";
+        return;
+      }
+      const toplamKg = (adet * gramaj) / 1000;
+      const kgFiyatKDVsiz = (birimFiyat / (gramaj / 1000)).toFixed(2);
+      const kgFiyatKDVli = (kgFiyatKDVsiz * (1 + kdv / 100)).toFixed(2);
+      document.getElementById('sonuc4').innerText =
+        `Toplam: ${toplamKg.toLocaleString()} kg\nKG Hariç: ${kgFiyatKDVsiz} TL\nKG Dahil: ${kgFiyatKDVli} TL`;
+    }
+
+    function agirlikliOrtalamaHesapla() {
+      const kg1 = parseFloat(document.getElementById('kg1')?.value);
+      const fiyat1 = parseFloat(document.getElementById('fiyat1')?.value);
+      const kg2 = parseFloat(document.getElementById('kg2')?.value);
+      const fiyat2 = parseFloat(document.getElementById('fiyat2')?.value);
+      if ([kg1, fiyat1, kg2, fiyat2].some(isNaN)) {
+        document.getElementById('agirlikliSonuc').innerText = "Lütfen tüm alanları doldurun.";
+        return;
+      }
+      const toplamKg = kg1 + kg2;
+      const toplamTutar = kg1 * fiyat1 + kg2 * fiyat2;
+      const ortalama = (toplamTutar / toplamKg).toFixed(2);
+      document.getElementById('agirlikliSonuc').innerText = `Ağırlıklı Ortalama Fiyat: ${ortalama} TL/kg`;
+    }
+
+    // Açıklama overlay fonksiyonları (app.js'de yoksa burada)
+    function aciklamaGoster(elem) {
+      const overlay = elem.closest('.card').querySelector('.aciklama-overlay');
+      if (overlay) overlay.style.display = 'flex';
+    }
+    function aciklamaKapat(btn) {
+      const overlay = btn.closest('.aciklama-overlay');
+      if (overlay) overlay.style.display = 'none';
+    }
+    function inputlariTemizle(btn) {
+      const card = btn.closest('.card');
+      card.querySelectorAll('input').forEach(i => i.value = '');
+      const result = card.querySelector('.result');
+      if (result) result.innerText = '';
+    }
+  </script>
+</body>
+</html>
