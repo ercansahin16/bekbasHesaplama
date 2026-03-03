@@ -12,7 +12,7 @@
   <div class="cikis-simgesi" onclick="window.location.href='../index.html'">
     <img src="../cikis.png" alt="Çıkış" width="50" height="25">
   </div>
-    <!-- Aynı header logo -->
+
   <div class="header-logo">
     <img src="../bekbas.png" alt="Bekbaş Logo" class="logo" />
     <div class="header-text">
@@ -24,10 +24,9 @@
     <div class="card">
       <h2>ÇALIŞ 2 - Adet Hesaplama</h2>
       <input type="number" id="taneGram" placeholder="Tane Gramajı (gr)">
-      <input type="number" id="koliAdedi" placeholder="Kolideki Adet" >
       <input type="number" id="toplamKg" placeholder="Toplam Miktar (kg)">
       <input type="number" id="birimFiyat" step="0.0001" placeholder="KG Fiyatı (KDV hariç)">
-      <input type="number" id="kdvOrani" placeholder="KDV Oranı (%)" >
+      <input type="number" id="kdvOrani" placeholder="KDV Oranı (%)">
       <button onclick="hesapla()">Hesapla</button>
       <button class="temizle" onclick="temizle()">Temizle</button>
       <div class="result" id="sonuc"></div>
@@ -37,20 +36,25 @@
   <script>
     function hesapla() {
       const g = +document.getElementById('taneGram').value;
-      const koli = +document.getElementById('koliAdedi').value;
       const tKg = +document.getElementById('toplamKg').value;
       const fiyat = +document.getElementById('birimFiyat').value;
       const kdv = +document.getElementById('kdvOrani').value;
-      if ([g, koli, tKg, fiyat, kdv].some(isNaN)) {
-        document.getElementById('sonuc').innerText = "Eksik değer!";
+
+      if ([g, tKg, fiyat, kdv].some(v => isNaN(v) || v <= 0)) {
+        document.getElementById('sonuc').innerText = "Eksik veya hatalı değer!";
         return;
       }
-      const toplamAdet = Math.round(tKg / (g / 1000));
-      const adetFiyatKDVsiz = (fiyat * (g / 1000)).toFixed(2);
-      const adetFiyatKDVli = (adetFiyatKDVsiz * (1 + kdv / 100)).toFixed(2);
+
+      const toplamAdet = Math.round((tKg * 1000) / g);
+      const adetFiyatKDVsiz = (fiyat * (g / 1000));
+      const adetFiyatKDVli = adetFiyatKDVsiz * (1 + kdv / 100);
+
       document.getElementById('sonuc').innerText =
-        `Adet: ${toplamAdet}\nKDV Hariç: ${adetFiyatKDVsiz} TL\nKDV Dahil: ${adetFiyatKDVli} TL`;
+        `Adet: ${toplamAdet}
+KDV Hariç: ${adetFiyatKDVsiz.toFixed(2)} TL
+KDV Dahil: ${adetFiyatKDVli.toFixed(2)} TL`;
     }
+
     function temizle() {
       document.querySelectorAll('input').forEach(i => i.value = '');
       document.getElementById('sonuc').innerText = '';
