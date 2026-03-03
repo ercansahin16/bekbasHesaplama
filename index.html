@@ -58,24 +58,27 @@
     </div>
 
     <!-- Card 2: Adet Hesaplama -->
-    <div class="card">
-      <div class="info-icon" onclick="aciklamaGoster(this)">ℹ️</div>
-      <div class="aciklama-overlay">
-        <div class="aciklama-icerik">
-          <p>Bu kart; tane gramajı, koli adedi, toplam kg ve kg fiyatına göre toplam adet, KDV hariç/dahil adet fiyatlarını hesaplar.</p>
-          <button onclick="aciklamaKapat(this)">Kapat</button>
-        </div>
-      </div>
-      <h2><strong>ÇALIŞ: 2</strong><a href="calis2/index.html" class="card-link">KG'dan Adet Çevirme</a></h2>
-      <input type="number" id="taneGram" placeholder="Tane Gramajı (gr)" />
-      <input type="number" id="koliAdedi" placeholder="Kolideki Adet"  />
-      <input type="number" id="toplamKg" placeholder="Toplam Miktar (kg)" />
-      <input type="number" id="birimFiyat" step="0.0001" placeholder="KG Fiyatı (KDV hariç)" />
-      <input type="number" id="kdvOrani" placeholder="KDV Oranı (%)"  />
-      <button onclick="sosisDogruHesapla()">Hesapla</button>
-      <button class="temizle" onclick="inputlariTemizle(this)">Temizle</button>
-      <div class="result" id="sonuc3"></div>
+<div class="card">
+  <div class="info-icon" onclick="aciklamaGoster(this)">ℹ️</div>
+  <div class="aciklama-overlay">
+    <div class="aciklama-icerik">
+      <p>Bu kart; tane gramajı, toplam kg ve kg fiyatına göre toplam adet, KDV hariç/dahil adet fiyatlarını hesaplar.</p>
+      <button onclick="aciklamaKapat(this)">Kapat</button>
     </div>
+  </div>
+  <h2><strong>ÇALIŞ: 2</strong>
+    <a href="calis2/index.html" class="card-link">KG'dan Adet Çevirme</a>
+  </h2>
+
+  <input type="number" id="taneGram" placeholder="Tane Gramajı (gr)" />
+  <input type="number" id="toplamKg" placeholder="Toplam Miktar (kg)" />
+  <input type="number" id="birimFiyat" step="0.0001" placeholder="KG Fiyatı (KDV hariç)" />
+  <input type="number" id="kdvOrani" placeholder="KDV Oranı (%)" />
+
+  <button onclick="sosisDogruHesapla()">Hesapla</button>
+  <button class="temizle" onclick="inputlariTemizle(this)">Temizle</button>
+  <div class="result" id="sonuc3"></div>
+</div>
 
     <!-- Card 3: KG Hesaplama -->
     <div class="card">
@@ -137,22 +140,26 @@
       document.getElementById('ortalamaSonuc').innerText = `Ortalama Fiyat: ${ortalama} TL/kg`;
     }
 
-    function sosisDogruHesapla() {
-      const gram = parseFloat(document.getElementById('taneGram')?.value);
-      const koliAdet = parseFloat(document.getElementById('koliAdedi')?.value);
-      const toplamKg = parseFloat(document.getElementById('toplamKg')?.value);
-      const birimFiyat = parseFloat(document.getElementById('birimFiyat')?.value);
-      const kdv = parseFloat(document.getElementById('kdvOrani')?.value);
-      if ([gram, koliAdet, toplamKg, birimFiyat, kdv].some(isNaN)) {
-        document.getElementById('sonuc3').innerText = "Lütfen tüm alanları doldurun.";
-        return;
-      }
-      const toplamAdet = Math.round(toplamKg / (gram / 1000));
-      const adetFiyatKDVsiz = (birimFiyat * (gram / 1000)).toFixed(2);
-      const adetFiyatKDVli = (adetFiyatKDVsiz * (1 + kdv / 100)).toFixed(2);
-      document.getElementById('sonuc3').innerText =
-        `Gelen Adet: ${toplamAdet} adet\nKDV Hariç: ${adetFiyatKDVsiz} TL\nKDV Dahil: ${adetFiyatKDVli} TL`;
-    }
+ function sosisDogruHesapla() {
+  const gram = parseFloat(document.getElementById('taneGram')?.value);
+  const toplamKg = parseFloat(document.getElementById('toplamKg')?.value);
+  const birimFiyat = parseFloat(document.getElementById('birimFiyat')?.value);
+  const kdv = parseFloat(document.getElementById('kdvOrani')?.value);
+
+  if ([gram, toplamKg, birimFiyat, kdv].some(isNaN)) {
+    document.getElementById('sonuc3').innerText = "Lütfen tüm alanları doldurun.";
+    return;
+  }
+
+  const toplamAdet = Math.round((toplamKg * 1000) / gram);
+  const adetFiyatKDVsiz = birimFiyat * (gram / 1000);
+  const adetFiyatKDVli = adetFiyatKDVsiz * (1 + kdv / 100);
+
+  document.getElementById('sonuc3').innerText =
+    `Gelen Adet: ${toplamAdet} adet
+KDV Hariç: ${adetFiyatKDVsiz.toFixed(2)} TL
+KDV Dahil: ${adetFiyatKDVli.toFixed(2)} TL`;
+}
 
     function patatesKgHesapla() {
       const adet = parseFloat(document.getElementById('patatesAdet')?.value);
@@ -202,4 +209,5 @@
     }
   </script>
 </body>
+
 </html>
