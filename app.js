@@ -271,6 +271,7 @@ function initSearch() {
       if (hit) shown++;
     });
     if (empty) empty.hidden = shown > 0;
+    if (window.scrollY > 0) window.scrollTo({ top: 0 });
   };
   const clear = document.getElementById('searchClear');
   const sync = () => { if (clear) clear.hidden = !box.value; };
@@ -305,6 +306,12 @@ document.addEventListener('DOMContentLoaded', () => {
   try { applyTheme(localStorage.getItem('bekbas-theme') || 'light'); } catch (e) {}
   initCards();
   initSearch();
+  // kaydırınca sabit başlığa gölge
+  const head = document.querySelector('.sticky-head');
+  if (head) {
+    const f = () => head.classList.toggle('scrolled', window.scrollY > 4);
+    window.addEventListener('scroll', f, { passive: true }); f();
+  }
 });
 
 // Fare tekerleği number input değerini değiştirmesin
