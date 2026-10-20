@@ -32,7 +32,7 @@
     </header>
 
     <main class="grid">
-      <section class="card" data-calc="ortalama">
+      <section class="card wide" data-calc="ortalama">
         <div class="card-head">
           <div>
             <div class="card-kicker">Çalış 1</div>
@@ -44,28 +44,29 @@
           </div>
         </div>
         <p class="desc">Depodaki ürün ile yeni gelen ürünün miktar ve fiyatına göre ortalama birim fiyatı hesaplar. Maliyet takibi için kullanılır.</p>
-        <div class="panel">
-          <div class="field">
+        <div class="panel row">
+          <div class="field md">
             <label>Depodaki Miktar (kg)</label>
             <input type="number" inputmode="decimal" step="any" data-key="depoKg" placeholder="0">
           </div>
-          <div class="field">
+          <div class="field md">
             <label>Depo Fiyatı (₺/kg)</label>
             <input type="number" inputmode="decimal" step="any" data-key="depoFiyat" placeholder="0">
           </div>
-          <div class="field">
+          <div class="field md">
             <label>Gelen Miktar (kg)</label>
             <input type="number" inputmode="decimal" step="any" data-key="gelenKg" placeholder="0">
           </div>
-          <div class="field">
+          <div class="field md">
             <label>Gelen Fiyat (₺/kg)</label>
             <input type="number" inputmode="decimal" step="any" data-key="gelenFiyat" placeholder="0">
           </div>
+          <span class="op">=</span>
+          <div class="result inline"></div>
         </div>
-        <div class="result"></div>
       </section>
 
-      <section class="card" data-calc="kgAdet">
+      <section class="card wide" data-calc="kgAdet">
         <div class="card-head">
           <div>
             <div class="card-kicker">Çalış 2</div>
@@ -77,28 +78,29 @@
           </div>
         </div>
         <p class="desc">Tane gramajı, toplam kg ve kg fiyatına göre toplam adedi ve KDV hariç/dahil adet fiyatını hesaplar.</p>
-        <div class="panel">
-          <div class="field">
+        <div class="panel row">
+          <div class="field md">
             <label>Tane Gramajı (gr)</label>
             <input type="number" inputmode="decimal" step="any" data-key="gram" placeholder="0">
           </div>
-          <div class="field">
+          <div class="field md">
             <label>Toplam Miktar (kg)</label>
             <input type="number" inputmode="decimal" step="any" data-key="toplamKg" placeholder="0">
           </div>
-          <div class="field">
+          <div class="field md">
             <label>KG Fiyatı (KDV hariç)</label>
             <input type="number" inputmode="decimal" step="any" data-key="fiyat" placeholder="0">
           </div>
-          <div class="field">
+          <div class="field sm">
             <label>KDV (%)</label>
             <input type="number" inputmode="decimal" step="any" data-key="kdv" value="20" data-default="20">
           </div>
+          <span class="op">=</span>
+          <div class="result inline"></div>
         </div>
-        <div class="result"></div>
       </section>
 
-      <section class="card" data-calc="adetKg">
+      <section class="card wide" data-calc="adetKg">
         <div class="card-head">
           <div>
             <div class="card-kicker">Çalış 3</div>
@@ -110,28 +112,29 @@
           </div>
         </div>
         <p class="desc">Toplam adet, adet gramajı ve birim fiyat ile toplam kg ve KDV hariç/dahil kg fiyatını hesaplar.</p>
-        <div class="panel">
-          <div class="field">
+        <div class="panel row">
+          <div class="field md">
             <label>Toplam Adet</label>
             <input type="number" inputmode="decimal" step="any" data-key="adet" placeholder="0">
           </div>
-          <div class="field">
+          <div class="field md">
             <label>Adet Gramajı (gr)</label>
             <input type="number" inputmode="decimal" step="any" data-key="gram" placeholder="0">
           </div>
-          <div class="field">
+          <div class="field md">
             <label>Birim Fiyat (KDV hariç)</label>
             <input type="number" inputmode="decimal" step="any" data-key="fiyat" placeholder="0">
           </div>
-          <div class="field">
+          <div class="field sm">
             <label>KDV (%)</label>
             <input type="number" inputmode="decimal" step="any" data-key="kdv" value="20" data-default="20">
           </div>
+          <span class="op">=</span>
+          <div class="result inline"></div>
         </div>
-        <div class="result"></div>
       </section>
 
-      <section class="card" data-calc="agirlikli">
+      <section class="card wide" data-calc="agirlikli">
         <div class="card-head">
           <div>
             <div class="card-kicker">Çalış 4</div>
@@ -143,25 +146,26 @@
           </div>
         </div>
         <p class="desc">İki farklı partinin kg ve fiyatını girerek ağırlıklı ortalama fiyatı hesaplar. Örnek: 1258 kg × 129 ₺ ve 712 kg × 118 ₺ → 125,02 ₺/kg.</p>
-        <div class="panel">
-          <div class="field">
+        <div class="panel row">
+          <div class="field md">
             <label>1. Miktar (kg)</label>
             <input type="number" inputmode="decimal" step="any" data-key="kg1" placeholder="0">
           </div>
-          <div class="field">
+          <div class="field md">
             <label>1. Fiyat (₺/kg)</label>
             <input type="number" inputmode="decimal" step="any" data-key="fiyat1" placeholder="0">
           </div>
-          <div class="field">
+          <div class="field md">
             <label>2. Miktar (kg)</label>
             <input type="number" inputmode="decimal" step="any" data-key="kg2" placeholder="0">
           </div>
-          <div class="field">
+          <div class="field md">
             <label>2. Fiyat (₺/kg)</label>
             <input type="number" inputmode="decimal" step="any" data-key="fiyat2" placeholder="0">
           </div>
+          <span class="op">=</span>
+          <div class="result inline"></div>
         </div>
-        <div class="result"></div>
       </section>
 
       <section class="card wide" data-calc="iskonto">

@@ -9,7 +9,7 @@
   <script>try{if(localStorage.getItem('bekbas-theme')==='dark')document.documentElement.classList.add('pre-dark')}catch(e){}</script>
 </head>
 <body>
-  <div class="wrap narrow">
+  <div class="wrap">
     <header class="topbar">
       <a class="brand" href="../index.html" style="color:inherit;text-decoration:none">
         <img src="../bekbas.png" alt="Bekbaş">
@@ -25,7 +25,7 @@
     </header>
 
     <main class="grid">
-      <section class="card" data-calc="agirlikli">
+      <section class="card wide" data-calc="agirlikli">
         <div class="card-head">
           <div>
             <div class="card-kicker">Çalış 4</div>
@@ -37,25 +37,26 @@
           </div>
         </div>
         <p class="desc">İki farklı partinin kg ve fiyatını girerek ağırlıklı ortalama fiyatı hesaplar. Örnek: 1258 kg × 129 ₺ ve 712 kg × 118 ₺ → 125,02 ₺/kg.</p>
-        <div class="panel">
-          <div class="field">
+        <div class="panel row">
+          <div class="field md">
             <label>1. Miktar (kg)</label>
             <input type="number" inputmode="decimal" step="any" data-key="kg1" placeholder="0" autofocus>
           </div>
-          <div class="field">
+          <div class="field md">
             <label>1. Fiyat (₺/kg)</label>
             <input type="number" inputmode="decimal" step="any" data-key="fiyat1" placeholder="0">
           </div>
-          <div class="field">
+          <div class="field md">
             <label>2. Miktar (kg)</label>
             <input type="number" inputmode="decimal" step="any" data-key="kg2" placeholder="0">
           </div>
-          <div class="field">
+          <div class="field md">
             <label>2. Fiyat (₺/kg)</label>
             <input type="number" inputmode="decimal" step="any" data-key="fiyat2" placeholder="0">
           </div>
+          <span class="op">=</span>
+          <div class="result inline"></div>
         </div>
-        <div class="result"></div>
       </section>
     </main>
   </div>
