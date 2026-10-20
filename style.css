@@ -210,6 +210,45 @@ input[type=number] { -moz-appearance: textfield; appearance: textfield; }
   .brand-title { font-size: 14px; }
   .panel.row .field.sm, .panel.row .field.md { flex: 1 1 calc(50% - 8px); width: auto; }
   .op { display: none; }
+  .search kbd { display: none; }
+  .panel.row .field.date { flex: 1 1 calc(50% - 8px); width: auto; }
   .result.inline { flex-basis: 100%; flex-direction: column; align-items: stretch; gap: 4px; padding: 8px 12px; }
   .result.inline .result-row { flex-direction: row; justify-content: space-between; align-items: baseline; }
 }
+
+/* ---------- Arama ---------- */
+.search {
+  position: relative;
+  margin-bottom: 16px;
+}
+.search svg {
+  position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+  width: 16px; height: 16px; color: var(--faint); pointer-events: none;
+}
+.search input {
+  width: 100%;
+  padding: 10px 12px 10px 38px;
+  font: inherit; font-size: 14px;
+  color: var(--text);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  outline: none;
+}
+.search input:focus { border-color: transparent; box-shadow: 0 0 0 2px var(--accent-ring); }
+.search input::placeholder { color: var(--faint); }
+.search kbd {
+  position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+  font: 600 11px 'Inter', sans-serif; color: var(--faint);
+  border: 1px solid var(--border); border-radius: 4px; padding: 1px 6px;
+}
+.no-result {
+  text-align: center; color: var(--muted); font-size: 13px;
+  padding: 32px 12px; border: 1px dashed var(--border); border-radius: 12px;
+}
+.card[hidden], .no-result[hidden] { display: none; }
+
+/* tarih alanı */
+.field.date { width: 150px; }
+.field.date input { text-align: left; }
