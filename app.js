@@ -162,9 +162,13 @@ function initSearch() {
     });
     if (empty) empty.hidden = shown > 0;
   };
-  box.addEventListener('input', run);
+  const clear = document.getElementById('searchClear');
+  const sync = () => { if (clear) clear.hidden = !box.value; };
+  box.addEventListener('input', () => { run(); sync(); });
+  box.addEventListener('search', () => { run(); sync(); });
+  clear?.addEventListener('click', () => { box.value = ''; run(); sync(); box.focus(); });
   box.addEventListener('keydown', e => {
-    if (e.key === 'Escape') { box.value = ''; run(); }
+    if (e.key === 'Escape') { box.value = ''; run(); sync(); }
     if (e.key === 'Enter') { // ilk bulunan tablonun ilk alanına geç
       const first = cards.find(c => !c.hidden)?.querySelector('input[data-key]');
       if (first) { e.preventDefault(); first.focus(); first.select?.(); }

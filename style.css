@@ -243,6 +243,16 @@ input[type=number] { -moz-appearance: textfield; appearance: textfield; }
   font: 600 11px 'Inter', sans-serif; color: var(--faint);
   border: 1px solid var(--border); border-radius: 4px; padding: 1px 6px;
 }
+.search input::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; display: none; }
+.search input:not(:placeholder-shown) ~ kbd { display: none; }
+.search-clear {
+  position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+  width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center;
+  border: none; background: transparent; color: var(--faint); border-radius: 6px; cursor: pointer;
+}
+.search-clear:hover { background: var(--hover); color: var(--danger); }
+.search-clear[hidden] { display: none; }
+.search .search-clear svg { position: static; transform: none; width: 16px; height: 16px; pointer-events: none; }
 .no-result {
   text-align: center; color: var(--muted); font-size: 13px;
   padding: 32px 12px; border: 1px dashed var(--border); border-radius: 12px;
