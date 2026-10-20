@@ -75,6 +75,89 @@ const CALC = {
     ];
   },
 
+  // ÇALIŞ 7: Kâr marjı / satış fiyatı
+  kar(v) {
+    const a = v.alis, ok = a > 0;
+    const hedef = ok && v.karY !== null ? a * (1 + v.karY / 100) : null;
+    const s = ok && v.satis !== null ? v.satis : null;
+    return [
+      ['Satış Fiyatı (kâr %\'den)', hedef !== null ? tl(hedef) : DASH, true],
+      ['Kâr (₺/birim)', s !== null ? tl(s - a) : hedef !== null ? tl(hedef - a) : DASH],
+      ['Kâr Oranı (alışa göre)', s !== null ? '%' + fmt((s - a) / a * 100) : DASH],
+      ['Kâr Marjı (satışa göre)', s ? '%' + fmt((s - a) / s * 100) : hedef ? '%' + fmt((hedef - a) / hedef * 100) : DASH],
+    ];
+  },
+
+  // ÇALIŞ 8: KDV dahil <-> hariç
+  kdvCevir(v) {
+    const t = v.tutar, k = (v.kdv || 0) / 100, ok = t !== null;
+    return [
+      ['Hariç ise → KDV Dahil', ok ? tl(t * (1 + k)) : DASH, true],
+      ['Eklenecek KDV', ok ? tl(t * k) : DASH],
+      ['Dahil ise → KDV Hariç', ok ? tl(t / (1 + k)) : DASH, true],
+      ['İçindeki KDV', ok ? tl(t - t / (1 + k)) : DASH],
+    ];
+  },
+
+  // ÇALIŞ 9: Vade farkı (aylık oran, 30 gün = 1 ay)
+  vade(v) {
+    const ok = v.tutar !== null && v.gun !== null && v.oran !== null;
+    const fark = ok ? v.tutar * (v.oran / 100) * (v.gun / 30) : 0;
+    return [
+      ['Vade Farkı', ok ? tl(fark) : DASH],
+      ['Toplam Ödenecek', ok ? tl(v.tutar + fark) : DASH, true],
+      ['Günlük Fark', ok && v.gun ? tl(fark / v.gun) : DASH],
+    ];
+  },
+
+  // ÇALIŞ 10: Fire / verim
+  fire(v) {
+    const ok = v.brut > 0 && v.net !== null && v.net > 0;
+    return [
+      ['Fire Miktarı', ok ? fmt(v.brut - v.net) + ' kg' : DASH],
+      ['Fire Oranı', ok ? '%' + fmt((v.brut - v.net) / v.brut * 100) : DASH],
+      ['Verim', ok ? '%' + fmt(v.net / v.brut * 100) : DASH],
+      ['Gerçek KG Maliyeti', ok && v.fiyat !== null ? tl(v.fiyat * v.brut / v.net) + '/kg' : DASH, true],
+    ];
+  },
+
+  // ÇALIŞ 11: Koli / kasa
+  koli(v) {
+    const ok = v.toplamKg !== null && v.koliKg > 0;
+    const tam = ok ? Math.floor(v.toplamKg / v.koliKg + 1e-9) : 0;
+    return [
+      ['Tam Koli', ok ? fmt(tam, 0) + ' koli' : DASH, true],
+      ['Artan', ok ? fmt(v.toplamKg - tam * v.koliKg) + ' kg' : DASH],
+      ['Gereken Koli (yukarı)', ok ? fmt(Math.ceil(v.toplamKg / v.koliKg - 1e-9), 0) + ' koli' : DASH],
+      ['KG Fiyatı', v.koliKg > 0 && v.koliFiyat !== null ? tl(v.koliFiyat / v.koliKg) + '/kg' : DASH],
+    ];
+  },
+
+  // ÇALIŞ 12: Vade tarihi (tarihe gün ekle/çıkar)
+  vadeTarih(v) {
+    if (v.bas === null || v.gun === null) return [['Vade Tarihi', DASH, true], ['Gün', DASH], ['Not', DASH]];
+    const d = new Date(v.bas + Math.round(v.gun) * 86400000);
+    const tarih = d.toLocaleDateString('tr-TR', { day: '2-digit', month: '2-digit', year: 'numeric', timeZone: 'UTC' });
+    const gunAd = d.toLocaleDateString('tr-TR', { weekday: 'long', timeZone: 'UTC' });
+    const hs = d.getUTCDay() === 0 || d.getUTCDay() === 6;
+    return [
+      ['Vade Tarihi', tarih, true],
+      ['Gün', gunAd],
+      ['Not', hs ? 'Hafta sonuna denk geliyor' : 'Hafta içi'],
+    ];
+  },
+
+  // ÇALIŞ 13: Yüzde hesaplama
+  yuzde(v) {
+    const a = v.a, b = v.b, ok = a !== null && b !== null;
+    return [
+      ['A\'nın %B\'si', ok ? fmt(a * b / 100) : DASH],
+      ['A, B\'nin yüzde kaçı', ok && b ? '%' + fmt(a / b * 100) : DASH],
+      ['A → B değişim', ok && a ? (b >= a ? '+' : '') + '%' + fmt((b - a) / a * 100) : DASH, true],
+      ['A + %B', ok ? fmt(a * (1 + b / 100)) : DASH],
+    ];
+  },
+
   // ÇALIŞ 5: Kademeli iskonto + KDV (önce iskontolar düşer, kalan tutara KDV eklenir)
   iskonto(v) {
     let net = v.tutar || 0;
@@ -100,7 +183,7 @@ function render(card) {
   if (!fn || !out) return;
   out.innerHTML = fn(readValues(card))
     .map(([label, val, main]) =>
-      `<div class="result-row${main ? ' main' : ''}"><span>${label}</span><b>${val}</b></div>`)
+      `<div class="result-row${main ? ' main' : ''}${val === DASH ? '' : ' copy'}" title="${val === DASH ? '' : 'Kopyalamak için tıkla'}"><span>${label}</span><b>${val}</b></div>`)
     .join('');
 }
 
@@ -132,6 +215,33 @@ function initCards() {
     render(card);
   });
 }
+
+// ---------- Kopyalama ----------
+function toast(msg) {
+  let t = document.getElementById('toast');
+  if (!t) { t = document.createElement('div'); t.id = 'toast'; t.className = 'toast'; document.body.appendChild(t); }
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._h);
+  t._h = setTimeout(() => t.classList.remove('show'), 1400);
+}
+async function copyText(text) {
+  try { await navigator.clipboard.writeText(text); return true; }
+  catch (e) {
+    const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select();
+    let ok = false; try { ok = document.execCommand('copy'); } catch (_) {}
+    ta.remove(); return ok;
+  }
+}
+document.addEventListener('click', async e => {
+  const row = e.target.closest('.result-row.copy');
+  if (!row) return;
+  const val = row.querySelector('b').textContent;
+  if (await copyText(val)) {
+    row.classList.add('copied'); setTimeout(() => row.classList.remove('copied'), 700);
+    toast('Kopyalandı: ' + val);
+  }
+});
 
 // ---------- Arama ----------
 // Türkçe karakterleri sadeleştirir: "Tarih Arası" -> "tarih arasi"

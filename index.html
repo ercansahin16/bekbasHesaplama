@@ -244,6 +244,204 @@
           <div class="result inline"></div>
         </div>
       </section>
+
+      <section class="card wide" data-calc="kar" data-tags="kar kâr marj marjı satış fiyatı alış fiyatı kar oranı yüzde kar hesaplama fiyat belirleme">
+        <div class="card-head">
+          <div>
+            <div class="card-kicker">Çalış 7</div>
+            <h2 class="card-title"><a href="calis7/index.html">Kâr Marjı / Satış Fiyatı</a></h2>
+          </div>
+          <div class="card-tools">
+            <button class="tool-btn info" title="Açıklama"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg></button>
+            <button class="tool-btn reset" title="Sıfırla"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg></button>
+          </div>
+        </div>
+        <p class="desc">Alış fiyatı ve kâr yüzdesinden satış fiyatını bulur. Satış fiyatını da girerseniz alışa göre kâr oranını ve satışa göre kâr marjını gösterir.</p>
+        <div class="panel row">
+          <div class="field md">
+            <label>Alış Fiyatı (₺)</label>
+            <input type="number" inputmode="decimal" step="any" data-key="alis" placeholder="0">
+          </div>
+          <div class="field sm">
+            <label>Kâr (%)</label>
+            <input type="number" inputmode="decimal" step="any" data-key="karY" placeholder="0">
+          </div>
+          <div class="field md">
+            <label>Satış Fiyatı (₺)</label>
+            <input type="number" inputmode="decimal" step="any" data-key="satis" placeholder="0">
+          </div>
+          <span class="op">=</span>
+          <div class="result inline"></div>
+        </div>
+      </section>
+
+      <section class="card wide" data-calc="kdvCevir" data-tags="kdv dahil hariç çevirme kdvli kdvsiz kdv ayırma kdv ekleme fatura vergi">
+        <div class="card-head">
+          <div>
+            <div class="card-kicker">Çalış 8</div>
+            <h2 class="card-title"><a href="calis8/index.html">KDV Dahil ↔ Hariç Çevirme</a></h2>
+          </div>
+          <div class="card-tools">
+            <button class="tool-btn info" title="Açıklama"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg></button>
+            <button class="tool-btn reset" title="Sıfırla"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg></button>
+          </div>
+        </div>
+        <p class="desc">Girilen tutar KDV hariçse dahil halini, KDV dahilse hariç halini ve içindeki KDV tutarını aynı anda gösterir.</p>
+        <div class="panel row">
+          <div class="field md">
+            <label>Tutar (₺)</label>
+            <input type="number" inputmode="decimal" step="any" data-key="tutar" placeholder="0">
+          </div>
+          <div class="field sm">
+            <label>KDV (%)</label>
+            <input type="number" inputmode="decimal" step="any" data-key="kdv" value="20" data-default="20">
+          </div>
+          <span class="op">=</span>
+          <div class="result inline"></div>
+        </div>
+      </section>
+
+      <section class="card wide" data-calc="vade" data-tags="vade farkı faiz gecikme vadeli satış aylık oran ödeme gün tarih">
+        <div class="card-head">
+          <div>
+            <div class="card-kicker">Çalış 9</div>
+            <h2 class="card-title"><a href="calis9/index.html">Vade Farkı Hesaplama</a></h2>
+          </div>
+          <div class="card-tools">
+            <button class="tool-btn info" title="Açıklama"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg></button>
+            <button class="tool-btn reset" title="Sıfırla"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg></button>
+          </div>
+        </div>
+        <p class="desc">Tutara, gün sayısına ve aylık vade oranına göre vade farkını hesaplar (30 gün = 1 ay, basit faiz).</p>
+        <div class="panel row">
+          <div class="field md">
+            <label>Tutar (₺)</label>
+            <input type="number" inputmode="decimal" step="any" data-key="tutar" placeholder="0">
+          </div>
+          <div class="field sm">
+            <label>Gün</label>
+            <input type="number" inputmode="decimal" step="any" data-key="gun" placeholder="0">
+          </div>
+          <div class="field md">
+            <label>Aylık Oran (%)</label>
+            <input type="number" inputmode="decimal" step="any" data-key="oran" placeholder="0">
+          </div>
+          <span class="op">=</span>
+          <div class="result inline"></div>
+        </div>
+      </section>
+
+      <section class="card wide" data-calc="fire" data-tags="fire verim kayıp brüt net kg gerçek maliyet fire oranı kesim temizleme">
+        <div class="card-head">
+          <div>
+            <div class="card-kicker">Çalış 10</div>
+            <h2 class="card-title"><a href="calis10/index.html">Fire / Verim Hesabı</a></h2>
+          </div>
+          <div class="card-tools">
+            <button class="tool-btn info" title="Açıklama"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg></button>
+            <button class="tool-btn reset" title="Sıfırla"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg></button>
+          </div>
+        </div>
+        <p class="desc">Brüt ve net kg'dan fire ve verim oranını bulur. KG fiyatı girilirse fire düşüldükten sonraki gerçek kg maliyetini hesaplar.</p>
+        <div class="panel row">
+          <div class="field md">
+            <label>Brüt (kg)</label>
+            <input type="number" inputmode="decimal" step="any" data-key="brut" placeholder="0">
+          </div>
+          <div class="field md">
+            <label>Net (kg)</label>
+            <input type="number" inputmode="decimal" step="any" data-key="net" placeholder="0">
+          </div>
+          <div class="field md">
+            <label>KG Fiyatı (₺)</label>
+            <input type="number" inputmode="decimal" step="any" data-key="fiyat" placeholder="0">
+          </div>
+          <span class="op">=</span>
+          <div class="result inline"></div>
+        </div>
+      </section>
+
+      <section class="card wide" data-calc="koli" data-tags="koli kasa paket kaç koli kg koli fiyatı kg fiyatı sevkiyat">
+        <div class="card-head">
+          <div>
+            <div class="card-kicker">Çalış 11</div>
+            <h2 class="card-title"><a href="calis11/index.html">Koli / Kasa Hesabı</a></h2>
+          </div>
+          <div class="card-tools">
+            <button class="tool-btn info" title="Açıklama"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg></button>
+            <button class="tool-btn reset" title="Sıfırla"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg></button>
+          </div>
+        </div>
+        <p class="desc">Toplam kg ve koli ağırlığından kaç tam koli çıktığını ve artan kg'ı bulur. Koli fiyatı girilirse kg fiyatına çevirir.</p>
+        <div class="panel row">
+          <div class="field md">
+            <label>Toplam (kg)</label>
+            <input type="number" inputmode="decimal" step="any" data-key="toplamKg" placeholder="0">
+          </div>
+          <div class="field md">
+            <label>Koli Ağırlığı (kg)</label>
+            <input type="number" inputmode="decimal" step="any" data-key="koliKg" placeholder="0">
+          </div>
+          <div class="field md">
+            <label>Koli Fiyatı (₺)</label>
+            <input type="number" inputmode="decimal" step="any" data-key="koliFiyat" placeholder="0">
+          </div>
+          <span class="op">=</span>
+          <div class="result inline"></div>
+        </div>
+      </section>
+
+      <section class="card wide" data-calc="vadeTarih" data-tags="vade tarihi tarih hesaplama gün ekle gün çıkar tarihe gün ekleme ödeme tarihi kaç gün sonra takvim">
+        <div class="card-head">
+          <div>
+            <div class="card-kicker">Çalış 12</div>
+            <h2 class="card-title"><a href="calis12/index.html">Vade Tarihi Bulma</a></h2>
+          </div>
+          <div class="card-tools">
+            <button class="tool-btn info" title="Açıklama"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg></button>
+            <button class="tool-btn reset" title="Sıfırla"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg></button>
+          </div>
+        </div>
+        <p class="desc">Bir tarihe gün ekler (eksi girerseniz çıkarır), çıkan tarihi ve haftanın hangi gününe denk geldiğini gösterir.</p>
+        <div class="panel row">
+          <div class="field date">
+            <label>Başlangıç Tarihi</label>
+            <input type="date" data-key="bas" data-default="today">
+          </div>
+          <div class="field md">
+            <label>Gün (+/−)</label>
+            <input type="number" inputmode="decimal" step="any" data-key="gun" placeholder="0">
+          </div>
+          <span class="op">=</span>
+          <div class="result inline"></div>
+        </div>
+      </section>
+
+      <section class="card wide" data-calc="yuzde" data-tags="yüzde oran yüzde kaç yüzdesi artış azalış değişim zam indirim">
+        <div class="card-head">
+          <div>
+            <div class="card-kicker">Çalış 13</div>
+            <h2 class="card-title"><a href="calis13/index.html">Yüzde Hesaplama</a></h2>
+          </div>
+          <div class="card-tools">
+            <button class="tool-btn info" title="Açıklama"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg></button>
+            <button class="tool-btn reset" title="Sıfırla"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg></button>
+          </div>
+        </div>
+        <p class="desc">İki sayı (A ve B) ile: A'nın %B'si, A'nın B'nin yüzde kaçı olduğu, A'dan B'ye yüzde değişim ve A'ya %B ekleme.</p>
+        <div class="panel row">
+          <div class="field md">
+            <label>A</label>
+            <input type="number" inputmode="decimal" step="any" data-key="a" placeholder="0">
+          </div>
+          <div class="field md">
+            <label>B</label>
+            <input type="number" inputmode="decimal" step="any" data-key="b" placeholder="0">
+          </div>
+          <span class="op">=</span>
+          <div class="result inline"></div>
+        </div>
+      </section>
     </main>
   </div>
   <script src="app.js"></script>
