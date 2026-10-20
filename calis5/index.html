@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Çalış 5 - İskonto & KDV Hesaplama</title>
+  <link rel="icon" type="image/jpeg" href="../icon1.jpg">
+  <link rel="stylesheet" href="../style.css">
+  <script>try{if(localStorage.getItem('bekbas-theme')==='dark')document.documentElement.classList.add('pre-dark')}catch(e){}</script>
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <a class="brand" href="../index.html" style="color:inherit;text-decoration:none">
+        <img src="../bekbas.png" alt="Bekbaş">
+        <div class="brand-text">
+          <div class="brand-sub">Hızlı Hesaplamalar</div>
+          <div class="brand-title">Bekbaş Gıda San. Tic. A.Ş.</div>
+        </div>
+      </a>
+      <div class="top-actions">
+        <button class="icon-btn" onclick="toggleTheme()" title="Tema"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg></button>
+      <a class="icon-btn" href="../index.html" title="Ana Sayfa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 01-1 1h-5v-6h-6v6H4a1 1 0 01-1-1z"/></svg></a>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="card wide" data-calc="iskonto">
+        <div class="card-head">
+          <div>
+            <div class="card-kicker">Çalış 5</div>
+            <h2 class="card-title">İskonto & KDV Hesaplama</h2>
+          </div>
+          <div class="card-tools">
+            <button class="tool-btn info" title="Açıklama"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg></button>
+            <button class="tool-btn reset" title="Sıfırla"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg></button>
+          </div>
+        </div>
+        <p class="desc">Tutara sırasıyla 4 kademeli iskonto uygulanır, kalan tutara KDV eklenir. Boş bırakılan iskonto 0 sayılır.</p>
+        <div class="panel row">
+          <div class="field md">
+            <label>Tutar (₺)</label>
+            <input type="number" inputmode="decimal" step="any" data-key="tutar" placeholder="0" autofocus>
+          </div>
+          <div class="field sm">
+            <label>KDV (%)</label>
+            <input type="number" inputmode="decimal" step="any" data-key="kdv" value="20" data-default="20">
+          </div>
+          <span class="op">-</span>
+          <div class="field sm">
+            <label>İsk 1 (%)</label>
+            <input type="number" inputmode="decimal" step="any" data-key="i1" placeholder="0">
+          </div>
+          <div class="field sm">
+            <label>İsk 2 (%)</label>
+            <input type="number" inputmode="decimal" step="any" data-key="i2" placeholder="0">
+          </div>
+          <div class="field sm">
+            <label>İsk 3 (%)</label>
+            <input type="number" inputmode="decimal" step="any" data-key="i3" placeholder="0">
+          </div>
+          <div class="field sm">
+            <label>İsk 4 (%)</label>
+            <input type="number" inputmode="decimal" step="any" data-key="i4" placeholder="0">
+          </div>
+          <span class="op">=</span>
+          <div class="result inline"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="../app.js"></script>
+</body>
+</html>

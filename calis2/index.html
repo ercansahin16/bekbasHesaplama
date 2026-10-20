@@ -3,62 +3,62 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Çalış 2 - Adet Hesaplama</title>
+  <title>Çalış 2 - KG'dan Adet Çevirme</title>
+  <link rel="icon" type="image/jpeg" href="../icon1.jpg">
   <link rel="stylesheet" href="../style.css">
-  <script src="../app.js"></script>
+  <script>try{if(localStorage.getItem('bekbas-theme')==='dark')document.documentElement.classList.add('pre-dark')}catch(e){}</script>
 </head>
-<body class="dark">
-  <button class="theme-toggle" onclick="toggleTheme()">🌓 Tema</button>
-  <div class="cikis-simgesi" onclick="window.location.href='../index.html'">
-    <img src="../cikis.png" alt="Çıkış" width="50" height="25">
+<body>
+  <div class="wrap narrow">
+    <header class="topbar">
+      <a class="brand" href="../index.html" style="color:inherit;text-decoration:none">
+        <img src="../bekbas.png" alt="Bekbaş">
+        <div class="brand-text">
+          <div class="brand-sub">Hızlı Hesaplamalar</div>
+          <div class="brand-title">Bekbaş Gıda San. Tic. A.Ş.</div>
+        </div>
+      </a>
+      <div class="top-actions">
+        <button class="icon-btn" onclick="toggleTheme()" title="Tema"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg></button>
+      <a class="icon-btn" href="../index.html" title="Ana Sayfa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 01-1 1h-5v-6h-6v6H4a1 1 0 01-1-1z"/></svg></a>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="card" data-calc="kgAdet">
+        <div class="card-head">
+          <div>
+            <div class="card-kicker">Çalış 2</div>
+            <h2 class="card-title">KG'dan Adet Çevirme</h2>
+          </div>
+          <div class="card-tools">
+            <button class="tool-btn info" title="Açıklama"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg></button>
+            <button class="tool-btn reset" title="Sıfırla"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg></button>
+          </div>
+        </div>
+        <p class="desc">Tane gramajı, toplam kg ve kg fiyatına göre toplam adedi ve KDV hariç/dahil adet fiyatını hesaplar.</p>
+        <div class="panel">
+          <div class="field">
+            <label>Tane Gramajı (gr)</label>
+            <input type="number" inputmode="decimal" step="any" data-key="gram" placeholder="0" autofocus>
+          </div>
+          <div class="field">
+            <label>Toplam Miktar (kg)</label>
+            <input type="number" inputmode="decimal" step="any" data-key="toplamKg" placeholder="0">
+          </div>
+          <div class="field">
+            <label>KG Fiyatı (KDV hariç)</label>
+            <input type="number" inputmode="decimal" step="any" data-key="fiyat" placeholder="0">
+          </div>
+          <div class="field">
+            <label>KDV (%)</label>
+            <input type="number" inputmode="decimal" step="any" data-key="kdv" value="20" data-default="20">
+          </div>
+        </div>
+        <div class="result"></div>
+      </section>
+    </main>
   </div>
-
-  <div class="header-logo">
-    <img src="../bekbas.png" alt="Bekbaş Logo" class="logo" />
-    <div class="header-text">
-      <div class="alt-baslik">Bekbaş Gıda San. Tic.Aş.</div>
-    </div>
-  </div>
-
-  <div class="card-container" style="max-width: 500px;">
-    <div class="card">
-      <h2>ÇALIŞ 2 - Adet Hesaplama</h2>
-      <input type="number" id="taneGram" placeholder="Tane Gramajı (gr)">
-      <input type="number" id="toplamKg" placeholder="Toplam Miktar (kg)">
-      <input type="number" id="birimFiyat" step="0.0001" placeholder="KG Fiyatı (KDV hariç)">
-      <input type="number" id="kdvOrani" placeholder="KDV Oranı (%)">
-      <button onclick="hesapla()">Hesapla</button>
-      <button class="temizle" onclick="temizle()">Temizle</button>
-      <div class="result" id="sonuc"></div>
-    </div>
-  </div>
-
-  <script>
-    function hesapla() {
-      const g = +document.getElementById('taneGram').value;
-      const tKg = +document.getElementById('toplamKg').value;
-      const fiyat = +document.getElementById('birimFiyat').value;
-      const kdv = +document.getElementById('kdvOrani').value;
-
-      if ([g, tKg, fiyat, kdv].some(v => isNaN(v) || v <= 0)) {
-        document.getElementById('sonuc').innerText = "Eksik veya hatalı değer!";
-        return;
-      }
-
-      const toplamAdet = Math.round((tKg * 1000) / g);
-      const adetFiyatKDVsiz = (fiyat * (g / 1000));
-      const adetFiyatKDVli = adetFiyatKDVsiz * (1 + kdv / 100);
-
-      document.getElementById('sonuc').innerText =
-        `Adet: ${toplamAdet}
-KDV Hariç: ${adetFiyatKDVsiz.toFixed(2)} TL
-KDV Dahil: ${adetFiyatKDVli.toFixed(2)} TL`;
-    }
-
-    function temizle() {
-      document.querySelectorAll('input').forEach(i => i.value = '');
-      document.getElementById('sonuc').innerText = '';
-    }
-  </script>
+  <script src="../app.js"></script>
 </body>
 </html>

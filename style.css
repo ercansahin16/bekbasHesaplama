@@ -1,315 +1,209 @@
+/* Bekbaş Hesaplamalar — minimal tasarım (Inter, slate + mavi vurgu) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 :root {
-  --bg: #525252;
-  --card-bg: #2a3748;
-  --text: #eef2f6;
-  --primary: #ff7a2f;
-  --border: #3e4b5d;
-  --input-bg: #1e2a3a;
-  --input-text: #eef2f6;
-  --shadow: rgba(0, 0, 0, 0.3);
+  --bg: #f8fafc;          /* slate-50 */
+  --card: #ffffff;
+  --panel: #f8fafc;       /* slate-50 */
+  --border: #e2e8f0;      /* slate-200 */
+  --input-border: #cbd5e1;/* slate-300 */
+  --text: #0f172a;        /* slate-900 */
+  --muted: #64748b;       /* slate-500 */
+  --faint: #94a3b8;       /* slate-400 */
+  --accent: #2563eb;      /* blue-600 */
+  --accent-ring: #3b82f6; /* blue-500 */
+  --result-bg: #eff6ff;   /* blue-50 */
+  --result-border: #bfdbfe;/* blue-200 */
+  --result-text: #1d4ed8; /* blue-700 */
+  --danger: #e11d48;      /* rose-600 */
+  --hover: #e2e8f099;
+  --shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
 }
 
-body.light {
-  --bg: #f0f4fa;
-  --card-bg: #ffffff;
-  --text: #1e2a3a;
-  --primary: #ff7a2f;
-  --border: #d0d9e6;
-  --input-bg: #ffffff;
-  --input-text: #1e2a3a;
-  --shadow: rgba(0, 0, 0, 0.05);
+body.dark, html.pre-dark body {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --panel: #172033;
+  --border: #334155;
+  --input-border: #475569;
+  --text: #f1f5f9;
+  --muted: #94a3b8;
+  --faint: #64748b;
+  --accent: #60a5fa;
+  --accent-ring: #3b82f6;
+  --result-bg: #1e3a8a33;
+  --result-border: #1e40af;
+  --result-text: #93c5fd;
+  --danger: #fb7185;
+  --hover: #33415599;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  font-family: 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   background: var(--bg);
   color: var(--text);
-  transition: background 0.3s, color 0.2s;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px 15px;
+  padding: 16px;
   font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  transition: background .2s, color .2s;
 }
 
-/* ---------- BAŞLIK ALANI ---------- */
-.header-logo {
-  width: 100%;
-  max-width: 1400px;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin: 0 0 30px 0;
-  padding: 0 10px;
-}
-.header-logo .logo {
-  height: 55px;
-  width: auto;
-  border-radius: 12px; /* yuvarlak köşeler */
-  object-fit: contain;
-}
-.header-text {
-  display: flex;
-  flex-direction: column;
-}
-.ana-baslik {
-  font-size: 26px;
-  font-weight: 700;
-  color: var(--primary);
-  line-height: 1.2;
-  letter-spacing: 0.5px;
-}
-.alt-baslik {
-  font-size: 14px;
-  color: var(--text);
-  opacity: 0.8;
-  margin-top: 2px;
-}
-@media (max-width: 650px) {
-  .header-logo .logo { height: 40px; }
-  .ana-baslik { font-size: 20px; }
-  .alt-baslik { font-size: 12px; }
-}
+.wrap { max-width: 1100px; margin: 0 auto; }
+.wrap.narrow { max-width: 460px; }
 
-/* tema butonu */
-.theme-toggle {
-  position: fixed;
-  top: 20px;
-  right: 80px;
-  background: var(--primary);
-  border: none;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 30px;
-  font-size: 14px;
-  cursor: pointer;
-  z-index: 999;
-  box-shadow: 0 4px 8px var(--shadow);
-  transition: 0.2s;
-  white-space: nowrap;
-  max-width: 120px;
-  width: auto;
-  min-width: 70px;
-  text-align: center;
-}
-.theme-toggle:hover {
-  filter: brightness(1.1);
-  transform: scale(1.02);
-}
-
-/* çıkış simgesi */
-.cikis-simgesi {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  cursor: pointer;
-  z-index: 1000;
-  background: var(--card-bg);
-  border-radius: 30px;
-  padding: 5px 12px;
-  box-shadow: 0 4px 8px var(--shadow);
-  transition: 0.2s;
+/* ---------- Üst bar ---------- */
+.topbar {
   display: flex;
   align-items: center;
-  gap: 6px;
-  color: var(--text);
-  font-size: 13px;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
 }
-.cikis-simgesi:hover {
-  transform: scale(1.05);
-  background: var(--primary);
-  color: white;
-}
-.cikis-simgesi img {
-  width: 24px;
-  height: auto;
-}
+.brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.brand img { height: 40px; width: 40px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border); }
+.brand-text { min-width: 0; }
+.brand-title { font-size: 15px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.brand-sub { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); }
 
-/* kart grid */
-.card-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-  gap: 22px;
-  width: 100%;
-  max-width: 1400px;
-  margin-top: 10px;
-}
-
-/* kart */
-.card {
-  position: relative;
-  background: var(--card-bg);
+.top-actions { display: flex; gap: 4px; flex-shrink: 0; }
+.icon-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px;
   border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 18px 16px 16px 16px;
-  box-shadow: 0 8px 18px var(--shadow);
-  transition: transform 0.2s, box-shadow 0.2s;
+  background: var(--card);
+  color: var(--muted);
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color .15s, background .15s;
+}
+.icon-btn:hover { color: var(--text); background: var(--hover); }
+.icon-btn svg { width: 16px; height: 16px; }
+
+/* ---------- Kart grid ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+.grid .wide { grid-column: 1 / -1; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 18px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  backdrop-filter: blur(2px);
-}
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 25px var(--shadow);
 }
 
-/* bilgi ikonu */
-.info-icon {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  font-size: 18px;
-  cursor: pointer;
-  background: var(--primary);
-  color: white;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 6px black;
-  z-index: 10; /* overlay'in altında kalmaması için yüksek */
-}
+.card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.card-kicker { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); }
+.card-title { font-size: 15px; font-weight: 600; margin-top: 2px; }
+.card-title a { color: inherit; text-decoration: none; }
+.card-title a:hover { color: var(--accent); }
+.card-tools { display: flex; gap: 2px; }
 
-/* kart başlığı */
-.card h2 {
-  font-size: 16px;
-  margin: 0 0 4px 0;
-  color: var(--primary);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: 36px;
-  min-height: 36px;
+.tool-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px;
+  border: none; background: transparent; color: var(--faint);
+  border-radius: 6px; cursor: pointer;
+  transition: color .15s, background .15s;
 }
-.card-link {
-  color: var(--text);
-  text-decoration: none;
-  border-bottom: 1px dashed var(--primary);
-  font-weight: 500;
-  font-size: 13px;
-  margin-left: auto;
-}
-.card-link:hover {
-  color: var(--primary);
-}
+.tool-btn:hover { background: var(--hover); color: var(--text); }
+.tool-btn.reset:hover { color: var(--danger); }
+.tool-btn svg { width: 16px; height: 16px; }
 
-/* açıklama overlay */
-.aciklama-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--card-bg);
-  backdrop-filter: blur(4px);
-  display: none; /* varsayılan gizli */
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  z-index: 20; /* ikonun üstünde */
-  border-radius: 20px;
-  box-sizing: border-box;
-  border: 2px solid var(--primary);
-}
-.aciklama-icerik {
-  text-align: center;
-  font-size: 13px;
+.desc {
+  display: none;
+  font-size: 12.5px;
   line-height: 1.5;
-  color: var(--text);
+  color: var(--muted);
+  background: var(--panel);
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  padding: 8px 10px;
 }
-.aciklama-icerik button {
-  margin-top: 18px;
-  padding: 8px 18px;
-  background: var(--primary);
-  color: white;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  font-weight: 600;
-}
+.card.show-desc .desc { display: block; }
 
-/* inputlar */
-input {
-  width: 100%;
-  padding: 10px 12px;
-  border-radius: 16px;
+/* ---------- Giriş paneli ---------- */
+.panel {
+  background: var(--panel);
   border: 1px solid var(--border);
-  background: var(--input-bg);
-  color: var(--input-text);
-  font-size: 13px;
-  outline: none;
-  transition: 0.2s;
+  border-radius: 8px;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
-input:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 2px rgba(255, 122, 47, 0.2);
-}
-input::placeholder {
-  color: #9aa9b9;
-  opacity: 0.7;
+.panel.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 8px;
 }
 
-/* butonlar */
-button {
+.field { display: flex; flex-direction: column; min-width: 0; }
+.field label { font-size: 11px; font-weight: 600; color: var(--muted); margin-bottom: 4px; }
+
+.field input {
   width: 100%;
-  padding: 10px;
-  border-radius: 30px;
-  border: none;
-  background: var(--primary);
-  color: white;
-  font-weight: 600;
-  font-size: 13px;
-  cursor: pointer;
-  transition: 0.2s;
-  box-shadow: 0 4px 6px var(--shadow);
-}
-button:hover {
-  filter: brightness(1.1);
-  transform: scale(1.02);
-}
-button.temizle {
-  background: #6c757d;
-  margin-top: 0;
-}
-button.temizle:hover {
-  background: #5a6268;
-}
-
-/* sonuç */
-.result {
-  min-height: 65px;
-  background: rgba(0,0,0,0.1);
-  border-radius: 16px;
-  padding: 10px;
+  padding: 7px 9px;
+  font: inherit;
+  font-size: 14px;
   font-weight: 500;
-  font-size: 13px;
-  white-space: pre-line;
-  border: 1px solid var(--border);
   color: var(--text);
+  background: var(--card);
+  border: 1px solid var(--input-border);
+  border-radius: 6px;
+  text-align: right;
+  outline: none;
+  transition: box-shadow .15s, border-color .15s;
 }
+.field input:focus { border-color: transparent; box-shadow: 0 0 0 2px var(--accent-ring); }
+.field input::placeholder { color: var(--faint); }
+.field.sm { width: 72px; }
+.field.sm input { text-align: center; }
+.field.md { width: 110px; }
 
-/* mobil */
-@media (max-width: 650px) {
-  body { padding: 10px; }
-  .theme-toggle { 
-    right: 90px; 
-    top: 15px; 
-    padding: 6px 12px;
-    max-width: 100px; 
-  }
-  .cikis-simgesi { top: 15px; right: 15px; padding: 4px 10px; }
-  .card-container { gap: 16px; }
-  .card { padding: 16px; }
-  .card h2 { padding-left: 32px; }
+.op { color: var(--faint); font-weight: 700; padding-bottom: 8px; }
+
+/* number okları gizle */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+input[type=number] { -moz-appearance: textfield; appearance: textfield; }
+
+/* ---------- Sonuç ---------- */
+.result {
+  background: var(--result-bg);
+  border: 1px solid var(--result-border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.result-row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.result-row span { font-size: 12px; font-weight: 600; color: var(--muted); }
+.result-row b { font-size: 14px; font-weight: 700; color: var(--result-text); font-variant-numeric: tabular-nums; }
+.result-row.main b { font-size: 16px; }
+
+.result.inline { min-width: 140px; flex: 1; }
+.result.inline .result-row b { font-size: 15px; }
+
+@media (max-width: 560px) {
+  body { padding: 12px; }
+  .grid { grid-template-columns: 1fr; }
+  .brand-title { font-size: 14px; }
+  .panel.row .field.sm, .panel.row .field.md { flex: 1 1 calc(33% - 8px); width: auto; }
+  .op { display: none; }
+  .result.inline { flex-basis: 100%; }
 }
